@@ -17,6 +17,7 @@ install:
   - set PATH=%PATH%;%QTDIR%/bin
 
 build_script:
+  - echo "fails?"
   - qmake Libki.pro
   - make
   - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
