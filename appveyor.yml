@@ -2,6 +2,9 @@
 image:
   - ubuntu
 
+platform:
+  - x64
+
 # Do not build on tags (GitHub and BitBucket)
 skip_tags: true
 

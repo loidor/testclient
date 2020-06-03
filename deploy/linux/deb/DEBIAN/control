@@ -1,7 +1,6 @@
 Package: libkiclient
-Version: VERSION
-Maintainer: Kyle M Hall
+Maintainer: Erik Öhrn
 Description: The client for Libki kiosk management system.
 Homepage: https://libki.org
-Architecture: ARCH
+Architecture: amd64
 Depends: libqt5webkit5, libqt5script5
