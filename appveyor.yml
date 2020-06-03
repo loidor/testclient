@@ -57,7 +57,7 @@ artifacts:
 deploy:
   release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
   description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
-  artifact: 'deploy\windows\Output\Libki_Client_Installer.exe'
+#  artifact: 'deploy\windows\Output\Libki_Client_Installer.exe'
   artifact: 'deploy\linux\libkiclient.deb'
   provider: GitHub
   auth_token:
