@@ -11,23 +11,17 @@ branches:
   only:
     - master
 
-install:
-- alias qmake='$HOME/Qt/latest/gcc_64/bin/qtchooser'
-- cd deploy/linux
-- bash build_deb.sh
-    
-build: off
-
-#build_script:
-#  - qmake Libki.pro
-#  - make
-#  - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
-#  - cd deploy/linux
-#  - dpkg -b deb Libki_Client_Installer.deb
+build_script:
+  - PATH=$HOME/Qt/5.12.8/gcc_64/bin:$PATH
+  - qmake Libki.pro
+  - make
+  - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
+  - cd deploy/linux
+  - dpkg -b deb Libki_Client_Installer.deb
 
 # defines what we can export from the build environment
 artifacts:
-  - path: 'deploy\linux\*.deb'
+  - path: 'deploy\linux\Libki_Client_Installer.deb'
     name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
 
 # deployment configuration, deploy to github releases
