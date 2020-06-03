@@ -44,7 +44,8 @@ for:
     description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
     artifact: 'deploy\windows\Output\Libki_Client_Installer.exe'
     provider: GitHub
-    auth_token: $(GITHUB_TOKEN)
+    auth_token:
+      secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
     draft: false
     prerelease: true
     force_update: true
