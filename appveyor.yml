@@ -14,11 +14,7 @@ branches:
   only:
     - master
 
-environment:
-  ver: 1.0.{build}
-
 install:
-  - echo $ver
   - sudo apt update
   - sudo apt install build-essential qt5-default qttools5-dev-tools libqt5webkit5-dev libqt5script5 qtscript5-dev -y
 
@@ -30,6 +26,7 @@ build_script:
   - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
   - cp example.ini deploy/linux/deb/etc/xdg/Libki.ini
   - cd deploy/linux
+  - sed -i 's/VERSION/latest/g' DEBIAN/control
   - dpkg -b deb Libki_Client_Installer.deb
 
 # defines what we can export from the build environment
