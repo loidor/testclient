@@ -11,10 +11,7 @@ branches:
   only:
     - master
 
-install:
-- ls -la
-
-#build_script:
+build_script:
 #  - qmake Libki.pro
 #  - make
 #  - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
