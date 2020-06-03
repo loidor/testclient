@@ -13,10 +13,9 @@ branches:
 
 install:
   - sudo apt update
-  - sudo apt install libqt5webkit5-dev libqt5script5 qtscript5-dev -y
+  - sudo apt install build-essential qt5-default qttools5-dev-tools libqt5webkit5-dev libqt5script5 qtscript5-dev -y
 
 build_script:
-  - PATH=$HOME/Qt/5.12.8/gcc_64/bin:$PATH
   - qmake Libki.pro
   - make
   - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
