@@ -26,7 +26,7 @@ build_script:
   - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
   - cp example.ini deploy/linux/deb/etc/xdg/Libki.ini
   - cd deploy/linux
-  - sed -i 's/VERSION/latest/g' DEBIAN/control
+  - sed -i 's/VERSION/latest/g' deb/DEBIAN/control
   - dpkg -b deb Libki_Client_Installer.deb
 
 # defines what we can export from the build environment
