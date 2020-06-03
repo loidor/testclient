@@ -1,4 +1,5 @@
 Package: libkiclient
+Version: VERSION
 Maintainer: Erik Öhrn
 Description: The client for Libki kiosk management system.
 Homepage: https://libki.org
