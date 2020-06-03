@@ -11,7 +11,13 @@ branches:
   only:
     - master
 
-build_script:
+install:
+- cd deploy/linux
+- bash build_deb.sh
+    
+build: off
+
+#build_script:
 #  - qmake Libki.pro
 #  - make
 #  - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
@@ -20,7 +26,7 @@ build_script:
 
 # defines what we can export from the build environment
 artifacts:
-  - path: 'deploy\linux\Libki_Client_Installer.deb'
+  - path: 'deploy\linux\*.deb'
     name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
 
 # deployment configuration, deploy to github releases
