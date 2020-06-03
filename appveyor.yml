@@ -14,8 +14,11 @@ branches:
   only:
     - master
 
+environment:
+  ver: 1.0.{build}
+
 install:
-  - echo '{build}'
+  - echo $ver
   - sudo apt update
   - sudo apt install build-essential qt5-default qttools5-dev-tools libqt5webkit5-dev libqt5script5 qtscript5-dev -y
 
