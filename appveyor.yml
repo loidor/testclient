@@ -51,7 +51,7 @@ artifacts:
   - path: 'deploy\windows\Output\Libki_Client_Installer.exe'
     name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
   - path: 'deploy\linux\libkiclient.deb
-    name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+    name: 'Libki Client (Unstable) linux'
     
 # deployment configuration, deploy to github releases
 deploy:
