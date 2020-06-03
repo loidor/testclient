@@ -11,14 +11,10 @@ branches:
   only:
     - master
 
-# scripts that run after cloning repository
 install:
-  - set QTDIR=$HOME/Qt/5.12
-  - set PATH=%PATH%;%QTDIR%/bin
-  - echo "fails?"
+- ls -la
 
-build_script:
-  - echo "fails?"
+#build_script:
 #  - qmake Libki.pro
 #  - make
 #  - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
