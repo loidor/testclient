@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/images">
+        <file>images/libki.png</file>
+        <file>images/libki_clock.png</file>
+    </qresource>
+    <qresource prefix="/icons">
+        <file>images/icons/sign-out-alt-solid.svg</file>
+        <file>images/icons/sign-in-alt-solid.svg</file>
+        <file>images/icons/lock-solid.svg</file>
+        <file>images/icons/ban-solid.svg</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>languages/libkiclient_fr.qm</file>
+        <file>languages/libkiclient_sv.qm</file>
+        <file>languages/libkiclient_es.qm</file>
+        <file>languages/libkiclient_pt.qm</file>
+        <file>languages/libkiclient_no.qm</file>
+    </qresource>
+</RCC>
