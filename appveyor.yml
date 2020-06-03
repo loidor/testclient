@@ -1,6 +1,5 @@
 # Build worker image (VM template)
 image:
-  - Visual Studio 2013
   - ubuntu
 
 # Do not build on tags (GitHub and BitBucket)
@@ -11,42 +10,35 @@ branches:
   # whitelist
   only:
     - master
-for:
--
-  matrix:
-    only:
-      - image: ubuntu
 
-  # scripts that run after cloning repository
-  install:
-    - set QTDIR=$HOME/Qt/5.12
-    - set PATH=%PATH%;%QTDIR%\bin
+# scripts that run after cloning repository
+install:
+  - set QTDIR=$HOME/Qt/5.12
+  - set PATH=%PATH%;%QTDIR%/bin
 
-  build_script:
-    - qmake Libki.pro
-    - make
-    - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
-    - cd deploy/linux
-    - dpkg -b deb Libki_Client_Installer.deb
+build_script:
+  - qmake Libki.pro
+  - make
+  - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
+  - cd deploy/linux
+  - dpkg -b deb Libki_Client_Installer.deb
 
 # defines what we can export from the build environment
-  artifacts:
-    - path: 'deploy\linux\Libki_Client_Installer.deb'
-      name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+artifacts:
+  - path: 'deploy\linux\Libki_Client_Installer.deb'
+    name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
 
-  # deployment configuration, deploy to github releases
-  deploy:
-    release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
-    description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
-    artifact: 'deploy/linux/Libki_Client_Installer.deb'
-    provider: GitHub
-    auth_token:
-      secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
-    draft: false
-    prerelease: true
-    force_update: true
-    skip_tags: true                  # Build only for branches not tags
-    on:
-      branch: master                 # release from master branch only
-
-    
+# deployment configuration, deploy to github releases
+deploy:
+  release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
+  description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+  artifact: 'deploy/linux/Libki_Client_Installer.deb'
+  provider: GitHub
+  auth_token:
+    secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
+  draft: false
+  prerelease: true
+  force_update: true
+  skip_tags: true                  # Build only for branches not tags
+  on:
+    branch: master                 # release from master branch only
