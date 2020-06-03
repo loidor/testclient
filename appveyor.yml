@@ -12,6 +12,7 @@ branches:
     - master
 
 install:
+- alias qmake='$HOME/Qt/latest/gcc_64/bin/qtchooser
 - cd deploy/linux
 - bash build_deb.sh
     
