@@ -15,6 +15,7 @@ branches:
 install:
   - set QTDIR=$HOME/Qt/5.12
   - set PATH=%PATH%;%QTDIR%/bin
+  - echo "fails?"
 
 build_script:
   - echo "fails?"
