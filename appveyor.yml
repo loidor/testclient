@@ -18,11 +18,11 @@ install:
 
 build_script:
   - echo "fails?"
-  - qmake Libki.pro
-  - make
-  - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
-  - cd deploy/linux
-  - dpkg -b deb Libki_Client_Installer.deb
+#  - qmake Libki.pro
+#  - make
+#  - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
+#  - cd deploy/linux
+#  - dpkg -b deb Libki_Client_Installer.deb
 
 # defines what we can export from the build environment
 artifacts:
