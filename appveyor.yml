@@ -56,15 +56,15 @@ for:
   # defines what we can export from the build environment
   artifacts:
     - path: 'deploy\windows\Output\Libki_Client_Installer.exe'
-      name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+      name: 'Win: Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
     - path: 'deploy\linux\Libki_Client_Installer.deb'
-      name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+      name: 'Ubuntu: Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
 
   # deployment configuration, deploy to github releases
   deploy:
     release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
     description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
-    artifact: 'deploy\windows\Output\Libki_Client_installer.exe', 'deploy/linux/Libki_Client_Installer.deb'
+    artifact: '*'
     provider: GitHub
     auth_token:
       secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
