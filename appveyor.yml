@@ -64,6 +64,7 @@ for:
       - x64
 
     install:
+      - uname -m
       - sudo apt update
       - sudo apt install build-essential qt5-default qttools5-dev-tools libqt5webkit5-dev libqt5script5 qtscript5-dev -y
 
