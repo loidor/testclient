@@ -29,9 +29,9 @@ for:
       - set PATH=%PATH%;C:\MinGW\bin;%QTDIR%\bin;"C:\\Program Files (x86)\\Inno Setup 5"
 
     build_script:
-      - $fvstring = gci libki.rc | Select-String "FileVersion" -CaseSensitive
-      - $fvstring -match '[0-9]+\.[0-9]+\.[0-9]+' >$null
-      - $vers = $matches.values
+      - ps: $fvstring = gci libki.rc | Select-String "FileVersion" -CaseSensitive
+      - ps: $fvstring -match '[0-9]+\.[0-9]+\.[0-9]+' >$null
+      - ps: $vers = $matches.values
       - qmake Libki.pro
       - mingw32-make
       - dir release
@@ -39,7 +39,7 @@ for:
       - cd deploy\windows
       - ISCC.exe installer-wizard.iss
       - cd Output
-      - mv Libki_Client_Installer.exe libkiclient_x64_$vers-$env:APPVEYOR_BUILD_NUMBER.exe
+      - ps: mv Libki_Client_Installer.exe libkiclient_x64_$vers-$env:APPVEYOR_BUILD_NUMBER.exe
 
     # defines what we can export from the build environment
     artifacts:
