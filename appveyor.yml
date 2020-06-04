@@ -50,7 +50,7 @@ for:
     deploy:
       release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
       description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
-      artifact: '*'
+      artifact: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
       provider: GitHub
       auth_token:
         secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
@@ -92,7 +92,7 @@ for:
     deploy:
       release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
       description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
-      artifact: '*'
+      artifact: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
       provider: GitHub
       auth_token:
         secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
