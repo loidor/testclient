@@ -19,6 +19,7 @@ environment:
 
   - job_name: Linux build
     job_group: Builds
+    appveyor_build_worker_image: Ubuntu
 
   - job_name: Deploy
     job_depends_on: Builds
