@@ -71,6 +71,8 @@ for:
       only:
         - job_name: Deploy
 
+    build: off
+
     # defines what we can export from the build environment
     artifacts:
       - path: 'deploy\windows\Output\Libki_Client_Installer.exe'
