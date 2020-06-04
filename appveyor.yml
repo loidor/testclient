@@ -1,8 +1,4 @@
-# Build worker image (VM template)
-image:
-  - Visual Studio 2013
-  - ubuntu
-
+# Build architecture
 platform:
   - x64
 
@@ -14,66 +10,83 @@ branches:
   # whitelist
   only:
     - master
+environment:
+  matrix:
+
+  - job_name: Win build
+    job_group: Builds
+    image: Visual Studio 2013
+
+  - job_name: Linux build
+    job_group: Builds
+    image: Ubuntu
+
+  - job_name: Deploy
+    job_depends_on: Builds
+
 for:
--
-  matrix:
-    only:
-      - image: Visual Studio 2013
+
+  -
+    matrix:
+      only:
+        - job_name: Win build
       
-  # scripts that run after cloning repository
-  install:
-    - set QTDIR=C:\Qt\5.5\mingw492_32
-    - set PATH=%PATH%;C:\MinGW\bin;%QTDIR%\bin;"C:\\Program Files (x86)\\Inno Setup 5"
+    # scripts that run after cloning repository
+    install:
+      - set QTDIR=C:\Qt\5.5\mingw492_32
+      - set PATH=%PATH%;C:\MinGW\bin;%QTDIR%\bin;"C:\\Program Files (x86)\\Inno Setup 5"
 
-  build_script:
-    - qmake Libki.pro
-    - mingw32-make
-    - dir release
-    - copy release\libkiclient.exe deploy\windows\libkiclient.exe
-    - cd deploy\windows
-    - ISCC.exe installer-wizard.iss
+    build_script:
+      - qmake Libki.pro
+      - mingw32-make
+      - dir release
+      - copy release\libkiclient.exe deploy\windows\libkiclient.exe
+      - cd deploy\windows
+      - ISCC.exe installer-wizard.iss
 
-  # defines what we can export from the build environment
-  artifacts:
-    - path: 'deploy\windows\Output\Libki_Client_Installer.exe'
-      name: 'Libki Client (Unstable) Windows [$(APPVEYOR_REPO_COMMIT)]'
+  - 
+    matrix:
+      only:
+        - job_name: Linux build
 
--
-  matrix:
-    only:
-      - image: ubuntu
-      
-  install:
-    - sudo apt update
-    - sudo apt install build-essential qt5-default qttools5-dev-tools libqt5webkit5-dev libqt5script5 qtscript5-dev -y
+    install:
+      - sudo apt update
+      - sudo apt install build-essential qt5-default qttools5-dev-tools libqt5webkit5-dev libqt5script5 qtscript5-dev -y
 
-  build_script:
-    - qmake Libki.pro
-    - make
-    - mkdir -p deploy/linux/deb/usr/bin
-    - mkdir -p deploy/linux/deb/etc/xdg
-    - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
-    - cp example.ini deploy/linux/deb/etc/xdg/Libki.ini
-    - cd deploy/linux
-    - sed -i 's/VERSION/1.0.0/g' deb/DEBIAN/control
-    - dpkg -b deb Libki_Client_Installer.deb
+    build_script:
+      - qmake Libki.pro
+      - make
+      - mkdir -p deploy/linux/deb/usr/bin
+      - mkdir -p deploy/linux/deb/etc/xdg
+      - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
+      - cp example.ini deploy/linux/deb/etc/xdg/Libki.ini
+      - cd deploy/linux
+      - sed -i 's/VERSION/1.0.0/g' deb/DEBIAN/control
+      - dpkg -b deb Libki_Client_Installer.deb
 
-  # defines what we can export from the build environment
-  artifacts:
-    - path: 'deploy\linux\Libki_Client_Installer.deb'
-      name: 'Libki Client (Unstable) Ubuntu [$(APPVEYOR_REPO_COMMIT)]'
+  -
+    matrix:
+      only:
+        - job_name: Deploy
 
-# deployment configuration, deploy to github releases
-deploy:
-  release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
-  description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
-  artifact: '*'
-  provider: GitHub
-  auth_token:
-    secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
-  draft: false
-  prerelease: true
-  force_update: true
-  skip_tags: true                  # Build only for branches not tags
-  on:
-    branch: master                 # release from master branch only
+    # defines what we can export from the build environment
+    artifacts:
+      - path: 'deploy\windows\Output\Libki_Client_Installer.exe'
+        name: 'Libki Client (Unstable) Windows [$(APPVEYOR_REPO_COMMIT)]'
+      - path: 'deploy\linux\Libki_Client_Installer.deb'
+        name: 'Libki Client (Unstable) Ubuntu [$(APPVEYOR_REPO_COMMIT)]'
+
+    # deployment configuration, deploy to github releases
+    deploy:
+      release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
+      description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+      artifact: '*'
+      provider: GitHub
+      auth_token:
+        secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
+      draft: false
+      prerelease: true
+      force_update: true
+      skip_tags: true                  # Build only for branches not tags
+      on:
+        branch: master                 # release from master branch only
