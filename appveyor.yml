@@ -40,6 +40,7 @@ for:
       - ISCC.exe installer-wizard.iss
       - cd Output
       - ps: mv Libki_Client_Installer.exe libkiclient_x64_$vers-$env:APPVEYOR_BUILD_NUMBER.exe
+      - ps: ls
 
     # defines what we can export from the build environment
     artifacts:
