@@ -25,7 +25,7 @@ for:
       
 
     build_script:
-      - cmd: ECHO %APPVEYOR_URL%
+      - ps: Write-Host "Message"
 
   - 
     matrix:
