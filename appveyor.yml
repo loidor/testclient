@@ -1,3 +1,8 @@
+# Build worker image (VM template)
+image:
+  - Visual Studio 2013
+  - Ubuntu
+
 # Build architecture
 platform:
   - x64
@@ -10,23 +15,13 @@ branches:
   # whitelist
   only:
     - master
-environment:
-  matrix:
-
-  - job_name: Win build
-    job_group: Builds
-    image: Visual Studio 2013
-
-  - job_name: Linux build
-    job_group: Builds
-    image: Ubuntu
 
 for:
 
   -
     matrix:
       only:
-        - job_name: Win build
+        - image: Visual Studio 2013
       
     # scripts that run after cloning repository
     install:
@@ -64,9 +59,7 @@ for:
   - 
     matrix:
       only:
-        - job_name: Linux build
-
-    image: Ubuntu
+        - image: Ubuntu
 
     install:
       - sudo apt update
