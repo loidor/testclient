@@ -1,6 +1,3 @@
-# Version number
-version: 2.2.1-{build}'
-
 # Build worker image (VM template)
 image:
   - Visual Studio 2013
@@ -79,8 +76,7 @@ for:
       - vers=$(grep FileVersion ../../libki.rc | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
       - sed -i "s/VERSION/$vers/g" deb/DEBIAN/control
       - sed -i "s/ARCH/amd64/g" deb/DEBIAN/control
-      - dpkg -b deb "libkiclient_amd64_$vers-$APPVEYOR_BUILD_NUMBER.deb"
-      - ls
+      - dpkg -b deb "libkiclient_amd64_$vers-prerelease$APPVEYOR_BUILD_NUMBER.deb"
 
     # defines what we can export from the build environment
     artifacts:
