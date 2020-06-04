@@ -25,7 +25,8 @@ for:
       
 
     build_script:
-      - ps: Write-Host $env:APPVEYOR_URL
+      - ps: Write-Host $env:APPVEYOR_BUILD_NUMBER
+      - ps: Write-Host $env:APPVEYOR_BUILD_VERSION
 
   - 
     matrix:
