@@ -1,3 +1,6 @@
+# Version number
+version: 2.2.1-{build}'
+
 # Build worker image (VM template)
 image:
   - Visual Studio 2013
