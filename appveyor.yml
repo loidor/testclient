@@ -44,6 +44,26 @@ for:
       - cd deploy\windows
       - ISCC.exe installer-wizard.iss
 
+    # defines what we can export from the build environment
+    artifacts:
+      - path: 'deploy\windows\Output\Libki_Client_Installer.exe'
+        name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+
+    # deployment configuration, deploy to github releases
+    deploy:
+      release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
+      description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+      artifact: '*'
+      provider: GitHub
+      auth_token:
+        secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
+      draft: false
+      prerelease: true
+      force_update: true
+      skip_tags: true                  # Build only for branches not tags
+      on:
+        branch: master                 # release from master branch only
+
   - 
     matrix:
       only:
@@ -66,19 +86,10 @@ for:
       - sed -i 's/VERSION/1.0.0/g' deb/DEBIAN/control
       - dpkg -b deb Libki_Client_Installer.deb
 
-  -
-    matrix:
-      only:
-        - job_name: Deploy
-
-    build: off
-
     # defines what we can export from the build environment
     artifacts:
-      - path: 'deploy\windows\Output\Libki_Client_Installer.exe'
-        name: 'Libki Client (Unstable) Windows [$(APPVEYOR_REPO_COMMIT)]'
       - path: 'deploy\linux\Libki_Client_Installer.deb'
-        name: 'Libki Client (Unstable) Ubuntu [$(APPVEYOR_REPO_COMMIT)]'
+        name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
 
     # deployment configuration, deploy to github releases
     deploy:
