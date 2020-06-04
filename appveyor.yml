@@ -25,7 +25,7 @@ for:
       
 
     build_script:
-      - ps: Write-Host $env:APPVEYOR_URL
+      - cmd: ECHO %APPVEYOR_URL%
 
   - 
     matrix:
