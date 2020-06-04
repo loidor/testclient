@@ -25,7 +25,7 @@ for:
       
 
     build_script:
-      - ps: Write-Host "Message"
+      - ps: Write-Host $env:APPVEYOR_URL
 
   - 
     matrix:
