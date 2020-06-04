@@ -24,7 +24,36 @@ for:
       
     # scripts that run after cloning repository
     install:
-      - ps: Write-Host $env:PLATFORM
+      - set QTDIR=C:\Qt\5.5\mingw492_32
+      - set PATH=%PATH%;C:\MinGW\bin;%QTDIR%\bin;"C:\\Program Files (x86)\\Inno Setup 5"
+
+    build_script:
+      - qmake Libki.pro
+      - mingw32-make
+      - dir release
+      - copy release\libkiclient.exe deploy\windows\libkiclient.exe
+      - cd deploy\windows
+      - ISCC.exe installer-wizard.iss
+
+    # defines what we can export from the build environment
+    artifacts:
+      - path: 'deploy\windows\Output\Libki_Client_Installer.exe'
+        name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+
+    # deployment configuration, deploy to github releases
+    deploy:
+      release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
+      description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+      artifact: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+      provider: GitHub
+      auth_token:
+        secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
+      draft: false
+      prerelease: true
+      force_update: true
+      skip_tags: true                  # Build only for branches not tags
+      on:
+        branch: master                 # release from master branch only
 
   - 
     matrix:
@@ -35,4 +64,38 @@ for:
       - x64
 
     install:
-      - echo $PLATFORM
+      - sudo apt update
+      - sudo apt install build-essential qt5-default qttools5-dev-tools libqt5webkit5-dev libqt5script5 qtscript5-dev -y
+
+    build_script:
+      - qmake Libki.pro
+      - make
+      - mkdir -p deploy/linux/deb/usr/bin
+      - mkdir -p deploy/linux/deb/etc/xdg
+      - cp libkiclient deploy/linux/deb/usr/bin/libkiclient
+      - cp example.ini deploy/linux/deb/etc/xdg/Libki.ini
+      - cd deploy/linux
+      - vers=$(grep FileVersion ../../libki.rc | grep -Eo '[0-9]+\.[0-9]+\.[0-9]+')
+      - sed -i "s/VERSION/$vers/g" deb/DEBIAN/control
+      - sed -i "s/ARCH/amd64/g" deb/DEBIAN/control
+      - dpkg -b deb "libkiclient_$vers-prerelease${APPVEYOR_BUILD_NUMBER}_amd64.deb"
+
+    # defines what we can export from the build environment
+    artifacts:
+      - path: 'deploy\linux\*.deb'
+        name: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+
+    # deployment configuration, deploy to github releases
+    deploy:
+      release: libki-client-unstable-v$(APPVEYOR_REPO_COMMIT)
+      description: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+      artifact: 'Libki Client (Unstable) [$(APPVEYOR_REPO_COMMIT)]'
+      provider: GitHub
+      auth_token:
+        secure: jERqDlxrRwuTdyrZqwGa9/Yku9WdvPtzDMT4DuNq/M8SQFUSi1aLK6uGekJ3YSEK
+      draft: false
+      prerelease: true
+      force_update: true
+      skip_tags: true                  # Build only for branches not tags
+      on:
+        branch: master                 # release from master branch only
